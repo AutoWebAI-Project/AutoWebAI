@@ -1,3 +1,4 @@
+import CMSSelector from './CMSSelector';
 import React from 'react';
 import './App.css';
 
