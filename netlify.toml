@@ -2,9 +2,7 @@
   command = "npm run build"
   publish = "build"
 
-[plugins]
-  # Skip Next.js plugin if accidentally detected
-  [[plugins]]
-    package = "@netlify/plugin-nextjs"
-    [plugins.inputs]
-    skip = true
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
+  [plugins.inputs]
+  skip = true
