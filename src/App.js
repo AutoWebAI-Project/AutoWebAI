@@ -30,14 +30,18 @@ function App() {
 
       const data = await response.json();
 
+      // Affiche les données dans la console pour le débogage
+      console.log("Réponse de l'API :", data);
+
       if (data.error) {
         setError(data.error);
+        console.error("Erreur renvoyée par le backend :", data.error);
       } else {
         setOriginal(data.original);
         setSuggestion(data.suggestion);
       }
     } catch (err) {
-      console.error(err);
+      console.error("Erreur lors de la requête vers l'API :", err);
       setError("Une erreur est survenue lors de la connexion à l'IA.");
     } finally {
       setLoading(false);
@@ -61,7 +65,11 @@ function App() {
         {loading ? "Analyse en cours..." : "Analyser le site"}
       </button>
 
-      {error && <p style={{ color: "red" }}>{error}</p>}
+      {error && (
+        <div style={{ color: "red", marginTop: "20px" }}>
+          <strong>Erreur :</strong> {error}
+        </div>
+      )}
 
       {original && (
         <div className="result">
