@@ -32,7 +32,6 @@ function App() {
       });
 
       const data = await response.json();
-
       console.log("Réponse de l'API :", data);
 
       if (data.error) {
@@ -72,8 +71,22 @@ function App() {
   return (
     <div className="min-h-screen bg-gray-100 p-6">
       <div className="max-w-3xl mx-auto bg-white shadow-md rounded-xl p-6">
-        <h1 className="text-3xl font-bold text-center text-blue-600 mb-4">AutoWebAI 🚀</h1>
-        <p className="text-center text-gray-700 mb-6">Entrez l'URL de votre site pour générer une version optimisée par IA :</p>
+
+        {/* Logo avec image + nom */}
+        <div className="flex items-center justify-center mb-6">
+          <img
+            src="/logo-autowebai.png"
+            alt="Logo AutoWebAI"
+            className="h-12 mr-3"
+          />
+          <h1 className="text-3xl font-bold text-gray-800">
+            AutoWeb<span className="text-blue-500">AI</span>
+          </h1>
+        </div>
+
+        <p className="text-center text-gray-700 mb-6">
+          Entrez l'URL de votre site pour générer une version optimisée par IA :
+        </p>
 
         <div className="grid gap-4 mb-4">
           <div>
