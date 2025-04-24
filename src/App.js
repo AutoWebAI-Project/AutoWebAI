@@ -30,7 +30,6 @@ function App() {
 
       const data = await response.json();
 
-      // Affiche les données dans la console pour le débogage
       console.log("Réponse de l'API :", data);
 
       if (data.error) {
@@ -46,6 +45,30 @@ function App() {
     } finally {
       setLoading(false);
     }
+  };
+
+  // Fonction pour copier la suggestion dans le presse-papiers
+  const handleCopy = () => {
+    if(suggestion) {
+      navigator.clipboard.writeText(suggestion)
+        .then(() => alert("Contenu copié dans le presse-papiers"))
+        .catch(err => alert("Erreur lors de la copie"));
+    }
+  };
+
+  // Fonction pour envoyer le contenu par email (simulation via mailto)
+  const handleEmail = () => {
+    if(suggestion) {
+      // Encodage du sujet et du corps du mail
+      const subject = encodeURIComponent("Suggestion IA pour votre site");
+      const body = encodeURIComponent(`Voici la suggestion générée par l'IA:\n\n${suggestion}`);
+      window.location.href = `mailto:?subject=${subject}&body=${body}`;
+    }
+  };
+
+  // Fonction simulant "Appliquer au CMS" (bientôt disponible)
+  const handleApplyCMS = () => {
+    alert("Fonctionnalité 'Appliquer au CMS' bientôt disponible !");
   };
 
   return (
@@ -83,9 +106,21 @@ function App() {
           <h2>Suggestion IA :</h2>
           <p>{suggestion}</p>
           <ul>
-            <li>✅ Copier le contenu</li>
-            <li>📧 Recevoir par email</li>
-            <li>🔧 Appliquer automatiquement (bientôt disponible)</li>
+            <li>
+              <button onClick={handleCopy}>
+                ✅ Copier le contenu
+              </button>
+            </li>
+            <li>
+              <button onClick={handleEmail}>
+                📧 Recevoir par email
+              </button>
+            </li>
+            <li>
+              <button onClick={handleApplyCMS}>
+                🔧 Appliquer automatiquement (bientôt disponible)
+              </button>
+            </li>
           </ul>
         </div>
       )}
