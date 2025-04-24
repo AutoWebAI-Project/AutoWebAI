@@ -4,6 +4,8 @@ import './App.css';
 function App() {
   const [url, setUrl] = useState("");
   const [cms, setCms] = useState("auto");
+  const [goal, setGoal] = useState("vente");
+  const [tone, setTone] = useState("professionnel");
   const [loading, setLoading] = useState(false);
   const [original, setOriginal] = useState("");
   const [suggestion, setSuggestion] = useState("");
@@ -26,7 +28,7 @@ function App() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ url, cms }), // Envoie aussi le CMS
+        body: JSON.stringify({ url, cms, goal, tone }), // Envoie aussi CMS, goal, tone
       });
 
       const data = await response.json();
@@ -73,7 +75,7 @@ function App() {
       <p>Entrez l'URL de votre site pour générer une version optimisée par IA :</p>
 
       {/* Sélecteur de CMS */}
-      <div style={{ marginBottom: "15px" }}>
+      <div style={{ marginBottom: "10px" }}>
         <label>
           Quel est votre CMS ?
           <select
@@ -87,6 +89,40 @@ function App() {
             <option value="wix">Wix</option>
             <option value="webflow">Webflow</option>
             <option value="autre">Autre</option>
+          </select>
+        </label>
+      </div>
+
+      {/* Sélecteur d'objectif */}
+      <div style={{ marginBottom: "10px" }}>
+        <label>
+          Objectif du site :
+          <select
+            value={goal}
+            onChange={(e) => setGoal(e.target.value)}
+            style={{ marginLeft: "10px", padding: "6px", fontSize: "16px" }}
+          >
+            <option value="vente">Vendre un produit</option>
+            <option value="lead">Obtenir des contacts</option>
+            <option value="blog">Partager des infos</option>
+            <option value="portfolio">Montrer un projet / CV</option>
+          </select>
+        </label>
+      </div>
+
+      {/* Sélecteur de ton */}
+      <div style={{ marginBottom: "15px" }}>
+        <label>
+          Ton du texte :
+          <select
+            value={tone}
+            onChange={(e) => setTone(e.target.value)}
+            style={{ marginLeft: "10px", padding: "6px", fontSize: "16px" }}
+          >
+            <option value="professionnel">Professionnel</option>
+            <option value="convivial">Convivial</option>
+            <option value="persuasif">Persuasif</option>
+            <option value="créatif">Créatif</option>
           </select>
         </label>
       </div>
