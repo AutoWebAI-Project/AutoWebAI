@@ -28,7 +28,7 @@ function App() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ url, cms, goal, tone }), // Envoie aussi CMS, goal, tone
+        body: JSON.stringify({ url, cms, goal, tone }),
       });
 
       const data = await response.json();
@@ -70,105 +70,117 @@ function App() {
   };
 
   return (
-    <div className="App">
-      <h1>Bienvenue sur AutoWebAI</h1>
-      <p>Entrez l'URL de votre site pour générer une version optimisée par IA :</p>
+    <div className="min-h-screen bg-gray-100 p-6">
+      <div className="max-w-3xl mx-auto bg-white shadow-md rounded-xl p-6">
+        <h1 className="text-3xl font-bold text-center text-blue-600 mb-4">AutoWebAI 🚀</h1>
+        <p className="text-center text-gray-700 mb-6">Entrez l'URL de votre site pour générer une version optimisée par IA :</p>
 
-      {/* Sélecteur de CMS */}
-      <div style={{ marginBottom: "10px" }}>
-        <label>
-          Quel est votre CMS ?
-          <select
-            value={cms}
-            onChange={(e) => setCms(e.target.value)}
-            style={{ marginLeft: "10px", padding: "6px", fontSize: "16px" }}
-          >
-            <option value="auto">Détection automatique</option>
-            <option value="wordpress">WordPress</option>
-            <option value="shopify">Shopify</option>
-            <option value="wix">Wix</option>
-            <option value="webflow">Webflow</option>
-            <option value="autre">Autre</option>
-          </select>
-        </label>
-      </div>
-
-      {/* Sélecteur d'objectif */}
-      <div style={{ marginBottom: "10px" }}>
-        <label>
-          Objectif du site :
-          <select
-            value={goal}
-            onChange={(e) => setGoal(e.target.value)}
-            style={{ marginLeft: "10px", padding: "6px", fontSize: "16px" }}
-          >
-            <option value="vente">Vendre un produit</option>
-            <option value="lead">Obtenir des contacts</option>
-            <option value="blog">Partager des infos</option>
-            <option value="portfolio">Montrer un projet / CV</option>
-          </select>
-        </label>
-      </div>
-
-      {/* Sélecteur de ton */}
-      <div style={{ marginBottom: "15px" }}>
-        <label>
-          Ton du texte :
-          <select
-            value={tone}
-            onChange={(e) => setTone(e.target.value)}
-            style={{ marginLeft: "10px", padding: "6px", fontSize: "16px" }}
-          >
-            <option value="professionnel">Professionnel</option>
-            <option value="convivial">Convivial</option>
-            <option value="persuasif">Persuasif</option>
-            <option value="créatif">Créatif</option>
-          </select>
-        </label>
-      </div>
-
-      <input
-        type="text"
-        value={url}
-        onChange={(e) => setUrl(e.target.value)}
-        placeholder="https://exemple.com"
-        style={{ width: "60%", padding: "10px", fontSize: "16px" }}
-      />
-      <br />
-      <button className="cta" onClick={handleAnalyze} disabled={loading}>
-        {loading ? "Analyse en cours..." : "Analyser le site"}
-      </button>
-
-      {error && (
-        <div style={{ color: "red", marginTop: "20px" }}>
-          <strong>Erreur :</strong> {error}
-        </div>
-      )}
-
-      {original && (
-        <div className="result">
-          <h2>Contenu extrait :</h2>
-          <p>{original}</p>
-        </div>
-      )}
-
-      {suggestion && (
-        <div className="result">
-          <h2>Suggestion IA :</h2>
-          <p>{suggestion}</p>
-          <div style={{ marginTop: "15px" }}>
-            <button onClick={handleCopy} style={{ marginRight: "10px" }}>
-              ✅ Copier
-            </button>
-            <button onClick={handleEmail} style={{ marginRight: "10px" }}>
-              📧 Envoyer par email
-            </button>
-            <button onClick={handleApplyCMS}>
-              🔧 Appliquer au CMS
-            </button>
+        <div className="grid gap-4 mb-4">
+          <div>
+            <label className="block mb-1 font-medium text-gray-800">Quel est votre CMS ?</label>
+            <select
+              value={cms}
+              onChange={(e) => setCms(e.target.value)}
+              className="w-full p-3 rounded-lg border border-gray-300"
+            >
+              <option value="auto">Détection automatique</option>
+              <option value="wordpress">WordPress</option>
+              <option value="shopify">Shopify</option>
+              <option value="wix">Wix</option>
+              <option value="webflow">Webflow</option>
+              <option value="autre">Autre</option>
+            </select>
           </div>
+
+          <div>
+            <label className="block mb-1 font-medium text-gray-800">Objectif du site :</label>
+            <select
+              value={goal}
+              onChange={(e) => setGoal(e.target.value)}
+              className="w-full p-3 rounded-lg border border-gray-300"
+            >
+              <option value="vente">Vendre un produit</option>
+              <option value="lead">Obtenir des contacts</option>
+              <option value="blog">Partager des infos</option>
+              <option value="portfolio">Montrer un projet / CV</option>
+            </select>
+          </div>
+
+          <div>
+            <label className="block mb-1 font-medium text-gray-800">Ton du texte :</label>
+            <select
+              value={tone}
+              onChange={(e) => setTone(e.target.value)}
+              className="w-full p-3 rounded-lg border border-gray-300"
+            >
+              <option value="professionnel">Professionnel</option>
+              <option value="convivial">Convivial</option>
+              <option value="persuasif">Persuasif</option>
+              <option value="créatif">Créatif</option>
+            </select>
+          </div>
+
+          <input
+            type="text"
+            value={url}
+            onChange={(e) => setUrl(e.target.value)}
+            placeholder="https://exemple.com"
+            className="w-full p-3 rounded-lg border border-gray-300"
+          />
+
+          <button
+            className="w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 transition"
+            onClick={handleAnalyze}
+            disabled={loading}
+          >
+            {loading ? "Analyse en cours..." : "Analyser le site"}
+          </button>
         </div>
-      )}
+
+        {error && (
+          <div className="text-red-600 text-sm mt-4">
+            <strong>Erreur :</strong> {error}
+          </div>
+        )}
+
+        {original && (
+          <div className="mt-6">
+            <h2 className="text-xl font-semibold text-gray-800 mb-2">Contenu extrait :</h2>
+            <div className="bg-gray-50 border rounded-lg p-4 text-sm text-gray-700 whitespace-pre-wrap">
+              {original}
+            </div>
+          </div>
+        )}
+
+        {suggestion && (
+          <div className="mt-6">
+            <h2 className="text-xl font-semibold text-gray-800 mb-2">Suggestion IA :</h2>
+            <div className="bg-green-50 border rounded-lg p-4 text-sm text-gray-700 whitespace-pre-wrap mb-4">
+              {suggestion}
+            </div>
+            <div className="flex flex-wrap gap-3">
+              <button
+                onClick={handleCopy}
+                className="bg-gray-200 hover:bg-gray-300 px-4 py-2 rounded-lg"
+              >
+                ✅ Copier
+              </button>
+              <button
+                onClick={handleEmail}
+                className="bg-gray-200 hover:bg-gray-300 px-4 py-2 rounded-lg"
+              >
+                📧 Envoyer par email
+              </button>
+              <button
+                onClick={handleApplyCMS}
+                className="bg-gray-200 hover:bg-gray-300 px-4 py-2 rounded-lg"
+              >
+                🔧 Appliquer au CMS
+              </button>
+            </div>
+          </div>
+        )}
+      </div>
     </div>
   );
 }
