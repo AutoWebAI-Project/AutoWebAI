@@ -3,6 +3,7 @@ import './App.css';
 
 function App() {
   const [url, setUrl] = useState("");
+  const [cms, setCms] = useState("auto");
   const [loading, setLoading] = useState(false);
   const [original, setOriginal] = useState("");
   const [suggestion, setSuggestion] = useState("");
@@ -25,7 +26,7 @@ function App() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ url }),
+        body: JSON.stringify({ url, cms }), // Envoie aussi le CMS
       });
 
       const data = await response.json();
@@ -46,7 +47,6 @@ function App() {
     }
   };
 
-  // 👉 Ajout des fonctions pour les actions simulées
   const handleCopy = () => {
     if (suggestion) {
       navigator.clipboard.writeText(suggestion)
@@ -71,6 +71,25 @@ function App() {
     <div className="App">
       <h1>Bienvenue sur AutoWebAI</h1>
       <p>Entrez l'URL de votre site pour générer une version optimisée par IA :</p>
+
+      {/* Sélecteur de CMS */}
+      <div style={{ marginBottom: "15px" }}>
+        <label>
+          Quel est votre CMS ?
+          <select
+            value={cms}
+            onChange={(e) => setCms(e.target.value)}
+            style={{ marginLeft: "10px", padding: "6px", fontSize: "16px" }}
+          >
+            <option value="auto">Détection automatique</option>
+            <option value="wordpress">WordPress</option>
+            <option value="shopify">Shopify</option>
+            <option value="wix">Wix</option>
+            <option value="webflow">Webflow</option>
+            <option value="autre">Autre</option>
+          </select>
+        </label>
+      </div>
 
       <input
         type="text"
@@ -101,7 +120,7 @@ function App() {
         <div className="result">
           <h2>Suggestion IA :</h2>
           <p>{suggestion}</p>
-          <div style={{ marginTop: "10px" }}>
+          <div style={{ marginTop: "15px" }}>
             <button onClick={handleCopy} style={{ marginRight: "10px" }}>
               ✅ Copier
             </button>
