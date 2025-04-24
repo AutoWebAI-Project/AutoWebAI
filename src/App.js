@@ -30,12 +30,10 @@ function App() {
 
       const data = await response.json();
 
-      // Affiche les données dans la console pour le débogage
       console.log("Réponse de l'API :", data);
 
       if (data.error) {
         setError(data.error);
-        console.error("Erreur renvoyée par le backend :", data.error);
       } else {
         setOriginal(data.original);
         setSuggestion(data.suggestion);
@@ -46,6 +44,27 @@ function App() {
     } finally {
       setLoading(false);
     }
+  };
+
+  // 👉 Ajout des fonctions pour les actions simulées
+  const handleCopy = () => {
+    if (suggestion) {
+      navigator.clipboard.writeText(suggestion)
+        .then(() => alert("Contenu copié dans le presse-papiers"))
+        .catch(() => alert("Erreur lors de la copie"));
+    }
+  };
+
+  const handleEmail = () => {
+    if (suggestion) {
+      const subject = encodeURIComponent("Suggestion IA pour votre site");
+      const body = encodeURIComponent(suggestion);
+      window.location.href = `mailto:?subject=${subject}&body=${body}`;
+    }
+  };
+
+  const handleApplyCMS = () => {
+    alert("Fonctionnalité bientôt disponible 😉");
   };
 
   return (
@@ -82,11 +101,17 @@ function App() {
         <div className="result">
           <h2>Suggestion IA :</h2>
           <p>{suggestion}</p>
-          <ul>
-            <li>✅ Copier le contenu</li>
-            <li>📧 Recevoir par email</li>
-            <li>🔧 Appliquer automatiquement (bientôt disponible)</li>
-          </ul>
+          <div style={{ marginTop: "10px" }}>
+            <button onClick={handleCopy} style={{ marginRight: "10px" }}>
+              ✅ Copier
+            </button>
+            <button onClick={handleEmail} style={{ marginRight: "10px" }}>
+              📧 Envoyer par email
+            </button>
+            <button onClick={handleApplyCMS}>
+              🔧 Appliquer au CMS
+            </button>
+          </div>
         </div>
       )}
     </div>
