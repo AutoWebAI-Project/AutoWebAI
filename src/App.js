@@ -77,11 +77,8 @@ function App() {
           <img
             src="/logo-autowebai.png"
             alt="Logo AutoWebAI"
-            className="h-12 mr-3"
+            className="h-24"
           />
-          <h1 className="text-3xl font-bold text-gray-800">
-            AutoWeb<span className="text-blue-500">AI</span>
-          </h1>
         </div>
 
         <p className="text-center text-gray-700 mb-6">
