@@ -77,7 +77,7 @@ function App() {
           <img
             src="/logo-autowebai.png"
             alt="Logo AutoWebAI"
-            className="h-28"
+            className="h-30"
           />
         </div>
 
