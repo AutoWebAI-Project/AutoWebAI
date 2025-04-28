@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './App.css';
-import VisionForm from './VisionForm';
+import VisionForm from './VisionForm'; // <-- IMPORT OK ✅
 
 function App() {
   const [url, setUrl] = useState("");
@@ -70,10 +70,14 @@ function App() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 p-6">
-      <div className="max-w-3xl mx-auto bg-white shadow-md rounded-xl p-6">
+    <div className="min-h-screen bg-gray-100 p-6 space-y-10">
+      
+      {/* FORMULAIRE DE CONFIGURATION CLIENT */}
+      <VisionForm />
 
-        {/* Logo avec image + nom */}
+      {/* ANALYSEUR AUTO WEBAI */}
+      <div className="max-w-3xl mx-auto bg-white shadow-md rounded-xl p-6">
+        {/* Logo */}
         <div className="flex items-center justify-center mb-6">
           <img
             src="/logo-autowebai.png"
@@ -87,6 +91,7 @@ function App() {
         </p>
 
         <div className="grid gap-4 mb-4">
+          {/* CMS */}
           <div>
             <label className="block mb-1 font-medium text-gray-800">Quel est votre CMS ?</label>
             <select
@@ -103,6 +108,7 @@ function App() {
             </select>
           </div>
 
+          {/* OBJECTIF */}
           <div>
             <label className="block mb-1 font-medium text-gray-800">Objectif du site :</label>
             <select
@@ -117,6 +123,7 @@ function App() {
             </select>
           </div>
 
+          {/* TON */}
           <div>
             <label className="block mb-1 font-medium text-gray-800">Ton du texte :</label>
             <select
@@ -131,6 +138,7 @@ function App() {
             </select>
           </div>
 
+          {/* INPUT URL */}
           <input
             type="text"
             value={url}
@@ -139,6 +147,7 @@ function App() {
             className="w-full p-3 rounded-lg border border-gray-300"
           />
 
+          {/* BOUTON ANALYSER */}
           <button
             className="w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 transition disabled:opacity-50"
             onClick={handleAnalyze}
@@ -158,12 +167,14 @@ function App() {
           </button>
         </div>
 
+        {/* ERREUR */}
         {error && (
           <div className="text-red-600 text-sm mt-4">
             <strong>Erreur :</strong> {error}
           </div>
         )}
 
+        {/* RESULTATS */}
         {original && (
           <div className="mt-6">
             <h2 className="text-xl font-semibold text-gray-800 mb-2">Contenu extrait :</h2>
